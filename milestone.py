@@ -153,7 +153,7 @@ class World(object):
             self.step()
 
     def fractionVisitedCells(self):
-        ''' returns the fraction of cells that have been visited '''
+        ''' returns the fraction of cells that have been visited so far'''
         numCells = 0
         numVisited = 0
         for i in range(HEIGHT):
@@ -165,7 +165,8 @@ class World(object):
         return numVisited / numCells
 
 def evaluateFitness(program, trials, steps):
-    ''' evaluates the fitness of the Picobot program '''
+    ''' takes in a program, the number of trials, the number of steps, and
+        evaluates the fitness of the Picobot program '''
     fitnesses = []
     for trial in range(trials):
         initialRow = random.choice(range(1,HEIGHT-1))
@@ -176,7 +177,7 @@ def evaluateFitness(program, trials, steps):
     return sum(fitnesses) / len(fitnesses)
 
 def randomPop(popsize):
-    ''' returns a list of popsize programs '''
+    ''' returns a list of popsize number of programs with the rules randomly generated'''
     programs = []
     for i in range(popsize):
         program = Program()
