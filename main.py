@@ -1,7 +1,6 @@
-# Christopher Ferrarin
-# Evan Liang
-# Jacky Lee
-# Date: December 2nd
+# Names: Jacky Lee, Christopher Ferrarin, Evan Liang
+# Date: December 7th
+# Our program is based off of Picobot, a programming challenge that wherein a pixel with user-defined instructions must touch every pixel in a map without any memory. The Program class creates a list of all possible Picobot rules, specifies how a program will move given its surroundings, and controls mutations and program breeding, while the World class creates an ASCII representation of the Picobot map and provides the means for the Picobot programs to gauge their surroundings and move. Finally, the final global functions control a genetic algorithm in which the Picobot programs that reach the most number of squares are allowed to breed to create a new generation of programs in the hopes that each generation produces a better set of rules than the last.
 
 import random
 import time
@@ -31,7 +30,7 @@ class Program(object):
         return s
 
     def randomize(self):
-        ''' makes a completely random set of Picobot rules, one for each 45 possible states and movess '''
+        ''' makes a completely random set of Picobot rules, one for each 45 possible states and moves '''
         pattern = ['xxxx','Nxxx','NExx','NxWx','xxxS','xExS','xxWS','xExx','xxWx']
         POSSIBLE_MOVES = ['x','N','E','W','S']
         states = [i for i in range(NUMSTATES)]
@@ -44,22 +43,19 @@ class Program(object):
                 self.rules[(i,j)] = (movedir, movestr)
 
     def __gt__(self,other):
-            """ greater than operator - works randomly, but works! """
-            return random.choice( [ True, False ] )
+        ''' greater than operator - works randomly, but works! '''
+        return random.choice( [ True, False ] )
 
     def __lt__(self,other):
-            """ less than operator - works randomly, but works! """
-            return random.choice( [ True, False ] )
+        ''' less than operator - works randomly, but works! '''
+        return random.choice( [ True, False ] )
 
     def getMove(self, state, surroundings):
-        ''' takes in the state and surrounding patterns and returns the move, represented
-            as a tuple that corresponds to those parameters.
-        '''
+        ''' takes in the state and surrounding patterns and returns the move, represented as a tuple that corresponds to those parameters '''
         return self.rules[(state, surroundings)]
 
     def mutate(self):
-        ''' randomly chooses a rule and replaces the move tuple with a randomly generated move.
-        '''
+        ''' randomly chooses a rule and replaces the move tuple with a randomly generated move '''
         POSSIBLE_MOVES = ['x','N','E','W','S']
         states = [i for i in range(NUMSTATES)]
         key = random.choice(list(self.rules.keys()))
@@ -72,9 +68,7 @@ class Program(object):
         self.rules[key] = (movedir, movestr)
 
     def crossover(self, other):
-        ''' takes in another program object named other, and returns an program that combines
-            some of the rules from other and some of the rules from self
-        '''
+        ''' takes in another program object named other, and returns an program that combines some of the rules from other and some of the rules from self '''
         offspringDict = {}
         pattern = ['xxxx','Nxxx','NExx','NxWx','xxxS','xExS','xxWS','xExx','xxWx']
         POSSIBLE_MOVES = ['x','N','E','W','S']
@@ -216,6 +210,5 @@ def GA(popsize, numgens):
 def saveToFile(filename, p):
     ''' saves the data from Program p to a file named filename '''
     f = open(filename, 'w')
-    print >> f, p  # prints Picobot program from __repr__
+    print >> f, p
     f.close()
-
