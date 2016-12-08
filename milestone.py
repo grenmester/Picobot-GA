@@ -11,8 +11,9 @@ HEIGHT = 25
 NUMSTATES = 5
 
 TRIALS = 10
-STEPS = 1500
-MUTATE_RATE = 0.1
+STEPS = 2500
+MUTATE_RATE = 0.2
+BEST_RATE = 0.10
 
 class Program(object):
     def __init__(self):
@@ -153,7 +154,7 @@ class World(object):
             self.step()
 
     def fractionVisitedCells(self):
-        ''' returns the fraction of cells that have been visited so far'''
+        ''' returns the fraction of cells that have been visited '''
         numCells = 0
         numVisited = 0
         for i in range(HEIGHT):
@@ -165,8 +166,7 @@ class World(object):
         return numVisited / numCells
 
 def evaluateFitness(program, trials, steps):
-    ''' takes in a program, the number of trials, the number of steps, and
-        evaluates the fitness of the Picobot program '''
+    ''' evaluates the fitness of the Picobot program '''
     fitnesses = []
     for trial in range(trials):
         initialRow = random.choice(range(1,HEIGHT-1))
@@ -177,7 +177,7 @@ def evaluateFitness(program, trials, steps):
     return sum(fitnesses) / len(fitnesses)
 
 def randomPop(popsize):
-    ''' returns a list of popsize number of programs with the rules randomly generated'''
+    ''' returns a list of popsize programs '''
     programs = []
     for i in range(popsize):
         program = Program()
@@ -193,7 +193,7 @@ def GA(popsize, numgens):
         fitnesses = []
         for program in programs:
             fitnesses.append((evaluateFitness(program, TRIALS, STEPS), program))
-        topIndex = int(len(fitnesses) / 10)
+        topIndex = int(len(fitnesses) * BEST_RATE)
         fitFitnesses = sorted(fitnesses)[-topIndex:]
         fitPrograms = [program[1] for program in fitFitnesses]
         newPrograms = [program for program in fitPrograms]
