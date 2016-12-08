@@ -211,7 +211,6 @@ def GA(popsize, numgens):
         print('Average Fitness: ' + str(averageFitness) + '\n')
         endTime = time.time()
         print('Computation Time: ' + str(endTime-startTime))
-    # saveToFile('fitprogram.txt', fitPrograms[-1])
     return fitPrograms[-1]
 
 def saveToFile(filename, p):
@@ -220,12 +219,3 @@ def saveToFile(filename, p):
     print >> f, p  # prints Picobot program from __repr__
     f.close()
 
-'''
-program = Program()
-program.randomize()
-world = World(2,2,program)
-program
-world
-world.run(250)
-world
-'''
